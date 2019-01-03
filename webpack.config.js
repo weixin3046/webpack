@@ -3,8 +3,7 @@ var HtmlWebpackPlugin = require('html-webpack-plugin');
 //const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CleanWebpackPlugin = require('clean-webpack-plugin'); //清除文件
-const webpack = require('webpack');
-
+var webpack = require('webpack');
 let pathsToClean = [
 	'dist',
 ]
@@ -16,25 +15,28 @@ module.exports = {
 	 * path 	路径
 	 */
 	entry: { //入口
-		'main': './src/app.js',
-		'contact': './src/contact.js'
+		app:[path.join(__dirname,'src','app.js'),
+             'webpack-dev-server/client?http://localhost:8080/'
+          ]
 	},
 	devServer: { //服务器
 		port: 9000, //端口
 		open: true, //自动打开浏览器
-		hot: true
+		contentBase: path.join(__dirname, "dist"),//它指定了服务器资源的根目录，如果不写入contentBase的值，那么contentBase默认是项目的目录。
+		overlay: true,  //这个配置属性用来在编译出错的时候，在浏览器页面上显示错误
+		hot: true,
+		inline: true
 	},
 	output: { //出口
 		path: path.resolve(__dirname, 'dist'),
-		filename: '[name].[hash].js'
+		filename: '[name].js'
 	},
 	//插件都在plugins对象里配置
 	plugins: [
-		new webpack.NamedModulesPlugin(),
 		new webpack.HotModuleReplacementPlugin(),
-		new CleanWebpackPlugin(pathsToClean),
+		new CleanWebpackPlugin(pathsToClean), //清除之前打包文件
 		new HtmlWebpackPlugin({
-			template: './src/index.pug',
+			template: './src/index.html',
 			filename: 'app.html', //更改生成文件的名字
 			//可以把生成的 index.html 文件的内容的没用空格去掉，减少空间
 			minify: {
@@ -78,13 +80,7 @@ module.exports = {
 				// 	//resolve-url-loader may be chained before sass-loader if necessary
 				// 	use: ['css-loader', 'sass-loader']
 				// })
-			}, {
-				test: /\.pug$/,
-				loader: ['raw-loader', 'pug-html-loader']
 			}
-			// 这两行是处理 react 相关的内容
-			// { test: /\.js$/, loader: 'babel-loader', exclude: /node_modules/ },
-			// { test: /\.jsx$/, loader: 'babel-loader', exclude: /node_modules/ }
 		]
 	}
 };

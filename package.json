@@ -30,7 +30,7 @@
     "webpack-dev-server": "^3.1.14"
   },
   "scripts": {
-    "dev": "webpack -d --watch",
+    "dev": "webpack-dev-server",
     "prod": "webpack -p"
   },
   "repository": {
