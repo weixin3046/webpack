@@ -1,0 +1,27 @@
+{
+  "name": "ruoyanwebpack",
+  "version": "1.0.0",
+  "description": "webpack Skill",
+  "main": "webpack.config.js",
+  "dependencies": {
+    "css-loader": "^2.1.0",
+    "html-webpack-plugin": "^3.2.0",
+    "ts-loader": "^5.3.2"
+  },
+  "devDependencies": {
+    "webpack": "^4.28.3"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/weixin3046/webpack.git"
+  },
+  "author": "Chasing Dream",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/weixin3046/webpack/issues"
+  },
+  "homepage": "https://github.com/weixin3046/webpack#readme"
+}
