@@ -1,2 +1,12 @@
 node_modules
 .DS_Store
+dist
+
+# 以“＃”开头的行都会被 Git 忽略。即#开头的文件标识注释，可以使用反斜杠进行转义
+# *表示匹配0个或多个任意字符
+
+# #               表示此为注释,将被Git忽略
+# *.a             表示忽略所有 .a 结尾的文件
+# /TODO           表示仅仅忽略项目根目录下的 TODO 文件，不包括 subdir/TODO
+# build/          表示忽略 build/目录下的所有文件，过滤整个build文件夹；
+# doc/*.txt       表示会忽略doc/notes.txt但不包括 doc/server/arch.txt
