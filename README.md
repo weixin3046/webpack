@@ -35,3 +35,6 @@
   React Installation https://reactjs.org/docs/installation.html
 
   npm install --save-dev babel-loader 在 webpack 中使用一个 loader 来转化 react 的代码
+
+# 更新
+ 增加sass语法；更换css转化插件mini-css-extract-plugin→extract-text-webpack-plugin

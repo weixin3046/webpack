@@ -1,7 +1,8 @@
 const path = require('path');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
-//const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const config = require('../config')
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+// const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CleanWebpackPlugin = require('clean-webpack-plugin'); //清除文件
 var webpack = require('webpack');
 let pathsToClean = [
@@ -15,15 +16,15 @@ module.exports = {
 	 * path 	路径
 	 */
 	entry: { //入口
-		app:[path.join(__dirname,'src','app.js'),
-             'webpack-dev-server/client?http://localhost:8080/'
-          ]
+		app: [path.join(__dirname, 'src', 'app.js'),
+			'webpack-dev-server/client?http://localhost:8080/'
+		]
 	},
 	devServer: { //服务器
 		port: 9000, //端口
 		open: true, //自动打开浏览器
-		contentBase: path.join(__dirname, "dist"),//它指定了服务器资源的根目录，如果不写入contentBase的值，那么contentBase默认是项目的目录。
-		overlay: true,  //这个配置属性用来在编译出错的时候，在浏览器页面上显示错误
+		contentBase: path.join(__dirname, "dist"), //它指定了服务器资源的根目录，如果不写入contentBase的值，那么contentBase默认是项目的目录。
+		overlay: true, //这个配置属性用来在编译出错的时候，在浏览器页面上显示错误
 		hot: true,
 		inline: true
 	},
@@ -59,28 +60,28 @@ module.exports = {
 		}),
 		// excludeChunks 指的是不包含， chunks 代表的是包含。
 		//new ExtractTextPlugin('style.css'),
-		new MiniCssExtractPlugin({
-			filename: '[name].css',
-			chunkFilename: '[id].css',
-		})
+		// new MiniCssExtractPlugin({
+		// 	filename: '[name].css',
+		// 	chunkFilename: '[id].css',
+		// })
 	],
 	module: {
+		//在webpack3.x中还保留之前版本的loaders，与rules并存都可以使用，在新版中完全移除了loaders，必须使用rules。
 		rules: [{
-				test: /\.scss$/, //test: /\.css$/
-				// use: ['style-loader', 'css-loader', 'sass-loader']
-				// 把 SASS 或 CSS 处理好后，放到一个 CSS 文件中
-				use: [
-					MiniCssExtractPlugin.loader, //https://www.npmjs.com/package/mini-css-extract-plugin
-					"css-loader",
-					"sass-loader"
-				]
-				//这是extract-text-webpack-plugin插件的使用方法目前webpack4不支持
-				// use: ExtractTextPlugin.extract({
-				// 	fallback: 'style-loader',// 编译后用什么loader来提取css文件
-				// 	//resolve-url-loader may be chained before sass-loader if necessary
-				// 	use: ['css-loader', 'sass-loader']
-				// })
-			}
-		]
+			// test: /\.scss$/, //test: /\.css$/
+			// // use: ['style-loader', 'css-loader', 'sass-loader']
+			// // 把 SASS 或 CSS 处理好后，放到一个 CSS 文件中
+			// use: [
+			// 	MiniCssExtractPlugin.loader, //https://www.npmjs.com/package/mini-css-extract-plugin
+			// 	"css-loader",
+			// 	"sass-loader"
+			// ]
+			//这是extract-text-webpack-plugin插件的使用方法目前webpack4不支持
+			use: ExtractTextPlugin.extract({
+				fallback: 'style-loader',// 编译后用什么loader来提取css文件
+				//resolve-url-loader may be chained before sass-loader if necessary
+				use: ['css-loader', 'sass-loader']
+			})
+		}]
 	}
 };
